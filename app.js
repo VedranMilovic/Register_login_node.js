@@ -100,5 +100,3 @@ app.post("/login", validateDataLogin, (req, res) => {
 app.listen(port, () => {
   console.log(`Listening to register/login app on ${port}`);
 });
-
-console.log(registeredUsersArray);
