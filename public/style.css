@@ -1,0 +1,89 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 80%;
+  box-sizing: border-box;
+}
+
+body {
+  color: #444;
+  background-color: #4294bd;
+  height: 100vh;
+  padding: 2.3rem;
+  line-height: 4rem;
+}
+
+h1 {
+  font-size: 3rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+#container {
+  margin: 2rem auto 0 auto;
+  width: 70vw;
+  height: 45vh;
+  background-color: rgba(163, 227, 227, 0.5);
+  border-radius: 20px;
+  border: 15px groove;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+}
+
+#registrationForm {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 7rem;
+}
+
+#loginForm {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+input,
+button {
+  border-radius: 4px;
+  border: 2px ridge #333;
+  margin: 0.5rem;
+  padding: 3px;
+}
+
+button {
+  background-color: #328e8c;
+}
+
+#registrationMessage,
+#loginMessage {
+  display: block;
+  position: absolute;
+  top: 27rem;
+  left: 50%;
+  transform: translate(-50%);
+  line-height: normal;
+
+  z-index: 1000;
+}
+
+#loginMessage {
+  top: 47rem;
+}
+
+@media (max-width: 360px) {
+  #registrationMessage,
+  #loginMessage {
+    font-size: 65%;
+    display: inline-block;
+    line-height: normal;
+  }
+
+  #container {
+    height: 75vh;
+  }
+}
