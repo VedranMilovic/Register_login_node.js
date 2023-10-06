@@ -36,13 +36,13 @@ function validateDataLogin(req, res, next) {
 }
 
 function registeredUser(username, password) {
-  if (!username || !password) {
-    return Promise.reject("Username and password are required");
-  }
+  // if (!username || !password) {    // joi radi ovo
+  // return Promise.reject("Username and password are required");
+  // }
   const existingUser = registeredUsersArray.find(
     (user) => user.username === username
   );
-  if (existingUser) return Promise.reject("Username already registered");
+  if (existingUser) return Promise.reject("Username already registered"); //console print
 
   const newUser = { username, password };
   registeredUsersArray.push(newUser);
@@ -64,25 +64,39 @@ function loggedUser(username, password) {
   );
   if (logInUser) {
     logInUser.loggedIn = true;
+
     return Promise.resolve("Successfully Logged in");
   } else {
     return Promise.reject("Login failed");
   }
 }
 
-app.post("/register", validateData, (req, res) => {
+app.post("/register", validateData, async (req, res) => {
   const { registerUsername, registerPassword } = req.body;
 
-  registeredUser(registerUsername, registerPassword)
-    .then((result) => {
-      console.log(`User registered: ${registerUsername}`);
-      res.send(result);
-    })
-    .catch((error) => {
-      console.error(`Register failed: ${error}`);
-      res.status(400).send(error);
-    });
+  try {
+    const result = await registeredUser(registerUsername, registerPassword);
+    console.log(`User registered: ${registerUsername}`);
+    res.send(result);
+  } catch (error) {
+    console.error(`Register failed: ${error}`);
+    res.status(400).send(error);
+  }
 });
+
+// app.post("/register", validateData, (req, res) => {
+//   const { registerUsername, registerPassword } = req.body;
+
+//   registeredUser(registerUsername, registerPassword)
+//     .then((result) => {
+//       console.log(`User registered: ${registerUsername}`);
+//       res.send(result);
+//     })
+//     .catch((error) => {
+//       console.error(`Register failed: ${error}`);
+//       res.status(400).send(error);
+//     });
+// });
 
 app.post("/login", validateDataLogin, (req, res) => {
   const { loginUsername, loginPassword } = req.body;
